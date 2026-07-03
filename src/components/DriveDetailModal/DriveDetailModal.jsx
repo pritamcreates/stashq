@@ -29,14 +29,16 @@ function parseTree(text) {
     const indentMatch = line.match(/^(\s*)/);
     const depth = indentMatch ? indentMatch[1].length : 0;
 
-    const node = { name: trimmed, children: [], id: Math.random().toString(36).substr(2, 9) };
+    const node = { name: trimmed, children: [], id: Math.random().toString(36).substr(2, 9), path: trimmed };
 
     while (stack.length > 0 && stack[stack.length - 1].depth >= depth) {
       stack.pop();
     }
 
     if (stack.length > 0) {
-      stack[stack.length - 1].node.children.push(node);
+      const parent = stack[stack.length - 1].node;
+      node.path = parent.path + '/' + trimmed;
+      parent.children.push(node);
     } else {
       result.push(node);
     }
@@ -48,18 +50,26 @@ function parseTree(text) {
 }
 
 // Collapsible tree node component
-function TreeNode({ node }) {
+function TreeNode({ node, onSelectNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const isFolder = node.children && node.children.length > 0;
 
   return (
     <div className={styles.treeNode}>
       <div
-        className={`${styles.nodeHeader} ${isFolder ? styles.clickableNode : ''}`}
-        onClick={() => isFolder && setCollapsed(!collapsed)}
+        className={`${styles.nodeHeader} ${styles.clickableNode}`}
+        onClick={() => onSelectNode(node)}
       >
         {isFolder ? (
-          <span className={styles.folderToggle}>{collapsed ? '▶' : '▼'}</span>
+          <span 
+            className={styles.folderToggle} 
+            onClick={(e) => { 
+              e.stopPropagation(); 
+              setCollapsed(!collapsed); 
+            }}
+          >
+            {collapsed ? '▶' : '▼'}
+          </span>
         ) : (
           <span className={styles.leafBullet}>•</span>
         )}
@@ -68,7 +78,7 @@ function TreeNode({ node }) {
       {isFolder && !collapsed && (
         <div className={styles.nodeChildren}>
           {node.children.map(child => (
-            <TreeNode key={child.id} node={child} />
+            <TreeNode key={child.id} node={child} onSelectNode={onSelectNode} />
           ))}
         </div>
       )}
@@ -83,6 +93,51 @@ export default function DriveDetailModal({ drive, onClose, onEdit, onDelete, onU
   const [lendNotes, setLendNotes] = useState('');
   const [treeInput, setTreeInput] = useState('');
   const [isSavingTree, setIsSavingTree] = useState(false);
+
+  // File/Folder metadata states
+  const [selectedNode, setSelectedNode] = useState(null);
+  const [nodeStatus, setNodeStatus] = useState('Raw');
+  const [nodeSize, setNodeSize] = useState('');
+  const [nodeNotes, setNodeNotes] = useState('');
+  const [nodeTags, setNodeTags] = useState('');
+
+  useEffect(() => {
+    if (selectedNode && drive?.fileMetadata?.[selectedNode.path]) {
+      const meta = drive.fileMetadata[selectedNode.path];
+      setNodeStatus(meta.status || 'Raw');
+      setNodeSize(meta.size || '');
+      setNodeNotes(meta.notes || '');
+      setNodeTags((meta.tags || []).join(', '));
+    } else {
+      setNodeStatus('Raw');
+      setNodeSize('');
+      setNodeNotes('');
+      setNodeTags('');
+    }
+  }, [selectedNode, drive]);
+
+  const handleSaveNodeMetadata = async (e) => {
+    e?.preventDefault();
+    if (!selectedNode) return;
+    const pathKey = selectedNode.path;
+    const currentMetadata = drive.fileMetadata || {};
+    const updatedMetadata = {
+      ...currentMetadata,
+      [pathKey]: {
+        status: nodeStatus,
+        size: nodeSize,
+        notes: nodeNotes,
+        tags: nodeTags.split(',').map(t => t.trim()).filter(Boolean),
+      }
+    };
+    try {
+      await onUpdateDrive(drive.id, { fileMetadata: updatedMetadata });
+      showToast(`Metadata saved for ${selectedNode.name}`);
+      setSelectedNode(null);
+    } catch (err) {
+      showToast('Error saving file metadata: ' + err.message);
+    }
+  };
 
   const lending = drive?.lending || { isLent: false, lentTo: '', lentDate: '', returnDate: '', notes: '' };
 
@@ -331,11 +386,76 @@ export default function DriveDetailModal({ drive, onClose, onEdit, onDelete, onU
                   ) : (
                     <div className={styles.treeContainer}>
                       {parsedNodes.map(node => (
-                        <TreeNode key={node.id} node={node} />
+                        <TreeNode key={node.id} node={node} onSelectNode={setSelectedNode} />
                       ))}
                     </div>
                   )}
                 </div>
+
+                {selectedNode && (
+                  <div className={styles.metadataSidebar}>
+                    <div className={styles.sidebarHeader}>
+                      <div>
+                        <h4 className={styles.sidebarTitle}>File Details</h4>
+                        <span className={styles.pathBreadcrumb} title={selectedNode.path}>
+                          {selectedNode.path}
+                        </span>
+                      </div>
+                      <button className={styles.sidebarClose} onClick={() => setSelectedNode(null)} aria-label="Close sidebar">&times;</button>
+                    </div>
+
+                    <form onSubmit={handleSaveNodeMetadata} className={styles.sidebarForm}>
+                      <div className={styles.field}>
+                        <label>Status</label>
+                        <select value={nodeStatus} onChange={e => setNodeStatus(e.target.value)}>
+                          <option>Raw</option>
+                          <option>Editing</option>
+                          <option>Delivered</option>
+                          <option>Archived</option>
+                        </select>
+                      </div>
+
+                      <div className={styles.field}>
+                        <label>Custom Size / Details</label>
+                        <input
+                          type="text"
+                          value={nodeSize}
+                          onChange={e => setNodeSize(e.target.value)}
+                          placeholder="e.g. 450 GB, 120 files"
+                        />
+                      </div>
+
+                      <div className={styles.field}>
+                        <label>Tags (comma separated)</label>
+                        <input
+                          type="text"
+                          value={nodeTags}
+                          onChange={e => setNodeTags(e.target.value)}
+                          placeholder="wedding, raw, edits"
+                        />
+                      </div>
+
+                      <div className={styles.field}>
+                        <label>Notes / Details</label>
+                        <textarea
+                          value={nodeNotes}
+                          onChange={e => setNodeNotes(e.target.value)}
+                          placeholder="Add comments or instructions specific to this folder..."
+                          rows={4}
+                        />
+                      </div>
+
+                      <div className={styles.sidebarActions}>
+                        <button type="button" className={styles.sidebarCancel} onClick={() => setSelectedNode(null)}>
+                          Cancel
+                        </button>
+                        <button type="submit" className={styles.sidebarSave}>
+                          Save
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                )}
               </div>
             </div>
           )}

@@ -220,11 +220,11 @@
 .explorerIntro code { background: #eee; padding: 2px 5px; border-radius: 4px; font-size: 11px; }
 
 .explorerSplit {
-  display: grid;
-  grid-template-columns: 240px 1fr;
+  display: flex;
   gap: 18px;
+  align-items: flex-start;
 }
-.inputArea { display: flex; flex-direction: column; gap: 6px; }
+.inputArea { display: flex; flex-direction: column; gap: 6px; width: 180px; flex-shrink: 0; }
 .inputArea textarea {
   padding: 10px;
   border: 1.5px solid var(--border);
@@ -250,7 +250,7 @@
 }
 .saveTreeBtn:hover { background: #222; }
 
-.treeArea { display: flex; flex-direction: column; gap: 6px; }
+.treeArea { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
 .treeContainer {
   background: var(--bg);
   border: 1.5px solid var(--border);
@@ -382,6 +382,90 @@
   transition: all .15s;
 }
 .detailDelete:hover { background: #fef2f2; border-color: var(--danger); }
+
+.metadataSidebar {
+  width: 240px;
+  background: #fbfbf9;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  padding: 14px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slideInRight .2s ease;
+}
+@keyframes slideInRight {
+  from { transform: translateX(12px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+.sidebarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  min-width: 0;
+}
+.sidebarTitle { font-size: 12px; font-weight: 800; color: #111; text-transform: uppercase; margin-bottom: 2px; }
+.pathBreadcrumb {
+  font-size: 10px;
+  color: #777;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: monospace;
+}
+.sidebarClose {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #aaa;
+  line-height: 1;
+}
+.sidebarClose:hover { color: #111; }
+
+.sidebarForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sidebarActions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+.sidebarCancel {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: #777;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.sidebarCancel:hover { border-color: #bbb; color: #111; }
+.sidebarSave {
+  flex: 1;
+  padding: 8px;
+  background: #111;
+  color: #fff;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.sidebarSave:hover { background: #222; }
 
 /* Print styling */
 @media print {
