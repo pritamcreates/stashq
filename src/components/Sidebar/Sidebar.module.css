@@ -1,6 +1,6 @@
 .sidebar {
   width: var(--sidebar-w);
-  background: #fff;
+  background: var(--white);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;

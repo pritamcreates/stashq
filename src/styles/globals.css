@@ -5,26 +5,26 @@
 ════════════════════════════════════════════ */
 :root {
   /* Palette */
-  --bg: #f2f2f0;
-  --white: #fff;
-  --dark: #111110;
-  --gray: #8a8a8a;
-  --border: #e6e6e4;
-  --border2: #ebebeb;
+  --bg: #070707;
+  --white: #111110;
+  --dark: #f3f4f6;
+  --gray: #8e9196;
+  --border: rgba(255, 255, 255, 0.08);
+  --border2: rgba(255, 255, 255, 0.04);
 
   /* Accent */
-  --accent: #111110;
-  --accent-hover: #2a2a2a;
-  --blue: #2563eb;
+  --accent: #f3f4f6;
+  --accent-hover: #e5e7eb;
+  --blue: #3b82f6;
 
   /* Drive types */
-  --hdd: #111110;
-  --ssd: #555;
+  --hdd: #3b82f6;
+  --ssd: #10b981;
 
   /* Status */
-  --danger: #c0392b;
-  --warn: #b7791f;
-  --safe: #276749;
+  --danger: #ef4444;
+  --warn: #f59e0b;
+  --safe: #10b981;
 
   /* Layout */
   --sidebar-w: 236px;
@@ -37,15 +37,15 @@
   --r-2xl: 18px;
 
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0,0,0,.05);
-  --shadow-md: 0 8px 28px rgba(0,0,0,.07);
-  --shadow-lg: 0 20px 60px rgba(0,0,0,.2);
-  --shadow-xl: 0 24px 60px rgba(0,0,0,.35);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.4);
+  --shadow-md: 0 8px 28px rgba(0,0,0,.6);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,.8);
+  --shadow-xl: 0 24px 60px rgba(0,0,0,.9);
 }
 
 /* ════════════════════════════════════════════
    RESET
-════════════════════════════════════════════ */
+   ════════════════════════════════════════════ */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -56,7 +56,13 @@ html { font-size: 16px; }
 
 body {
   font-family: 'Montserrat', sans-serif;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    repeating-linear-gradient(120deg, transparent, transparent 180px, rgba(255, 255, 255, 0.012) 180px, rgba(255, 255, 255, 0.012) 181px),
+    repeating-linear-gradient(60deg, transparent, transparent 240px, rgba(255, 255, 255, 0.008) 240px, rgba(255, 255, 255, 0.008) 241px);
+  background-size: 56px 56px, 56px 56px, auto, auto;
   color: var(--dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

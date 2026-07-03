@@ -12,7 +12,7 @@
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .modal {
-  background: #fff;
+  background: var(--white);
   border-radius: 18px;
   padding: 28px;
   width: 480px;
@@ -51,7 +51,7 @@
   transition: all .15s;
   flex-shrink: 0;
 }
-.closeBtn:hover { background: #eee; color: var(--dark); }
+.closeBtn:hover { background: var(--border); color: var(--dark); }
 
 .row {
   display: grid;
@@ -88,7 +88,7 @@
 }
 .field input:focus,
 .field select:focus,
-.field textarea:focus { border-color: #999; background: #fff; }
+.field textarea:focus { border-color: var(--gray); background: var(--white); }
 .field textarea { resize: vertical; min-height: 72px; }
 
 /* Fill preview */
@@ -138,12 +138,12 @@
   cursor: pointer;
   transition: all .2s;
 }
-.cancel:hover { border-color: #bbb; color: var(--dark); }
+.cancel:hover { border-color: var(--gray); color: var(--dark); }
 .save {
   flex: 1;
   padding: 13px;
   background: var(--dark);
-  color: #fff;
+  color: var(--bg);
   border: none;
   border-radius: 10px;
   font-family: 'Montserrat', sans-serif;
@@ -152,5 +152,5 @@
   cursor: pointer;
   transition: background .2s;
 }
-.save:hover { background: #1e1e1e; }
+.save:hover { background: var(--gray); }
 .save:disabled { opacity: .5; cursor: not-allowed; }

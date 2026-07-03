@@ -46,7 +46,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px 24px;
-  background: #fff;
+  background: var(--white);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   gap: 12px;

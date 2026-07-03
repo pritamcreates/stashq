@@ -45,18 +45,22 @@ export default function DitCalculator() {
   useEffect(() => {
     let timer;
     if (simulate) {
+      // Calculate a scaled simulation duration (between 1 and 8 seconds) based on totalSeconds
+      const simDurationMs = Math.min(Math.max(totalSeconds * 20, 1000), 8000);
+      const stepIncrement = 5000 / simDurationMs; // 100% / (simDurationMs / 50ms interval)
+
       timer = setInterval(() => {
         setProgress(p => {
           if (p >= 100) {
             setSimulate(false);
             return 100;
           }
-          return p + 2.5; // Simulate quick progress increment
+          return Math.min(100, p + stepIncrement);
         });
       }, 50);
     }
     return () => clearInterval(timer);
-  }, [simulate]);
+  }, [simulate, totalSeconds]);
 
   const startSimulation = () => {
     setProgress(0);
