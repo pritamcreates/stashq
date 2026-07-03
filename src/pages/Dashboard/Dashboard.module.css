@@ -47,6 +47,8 @@
   justify-content: space-between;
   padding: 15px 24px;
   background: var(--white);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   gap: 12px;
@@ -163,7 +165,9 @@
   animation: fadeUp .4s ease .1s both;
 }
 .statCard {
-  background: #fff;
+  background: var(--white);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px;
@@ -171,7 +175,7 @@
   overflow: hidden;
   transition: transform .2s, box-shadow .2s;
 }
-.statCard:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+.statCard:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.3); border-color: rgba(255, 255, 255, 0.15); }
 .statCard::after {
   content: '';
   position: absolute;

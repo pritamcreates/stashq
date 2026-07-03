@@ -5,15 +5,15 @@
 ════════════════════════════════════════════ */
 :root {
   /* Palette */
-  --bg: #070707;
-  --white: #111110;
-  --dark: #f3f4f6;
-  --gray: #8e9196;
+  --bg: #080808;
+  --white: rgba(255, 255, 255, 0.04);
+  --dark: #ffffff;
+  --gray: rgba(255, 255, 255, 0.5);
   --border: rgba(255, 255, 255, 0.08);
   --border2: rgba(255, 255, 255, 0.04);
 
   /* Accent */
-  --accent: #f3f4f6;
+  --accent: #ffffff;
   --accent-hover: #e5e7eb;
   --blue: #3b82f6;
 
@@ -37,10 +37,10 @@
   --r-2xl: 18px;
 
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0,0,0,.4);
-  --shadow-md: 0 8px 28px rgba(0,0,0,.6);
-  --shadow-lg: 0 20px 60px rgba(0,0,0,.8);
-  --shadow-xl: 0 24px 60px rgba(0,0,0,.9);
+  --shadow-sm: 0 4px 12px rgba(0,0,0,.3);
+  --shadow-md: 0 8px 32px rgba(0,0,0,.5);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,.7);
+  --shadow-xl: 0 24px 60px rgba(0,0,0,.8);
 }
 
 /* ════════════════════════════════════════════

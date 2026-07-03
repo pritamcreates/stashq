@@ -1,5 +1,7 @@
 .card {
   background: var(--white);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1.5px solid var(--border);
   border-radius: 13px;
   padding: 14px;
@@ -9,8 +11,8 @@
 }
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(0,0,0,.07);
-  border-color: #ccc;
+  box-shadow: 0 8px 28px rgba(0,0,0,.3);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 .card:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 
