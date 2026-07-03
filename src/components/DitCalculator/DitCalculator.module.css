@@ -153,17 +153,17 @@
 }
 .simBtn {
   background: var(--dark);
-  color: var(--bg);
+  color: #fff;
   border: none;
 }
-.simBtn:hover { background: var(--gray); }
+.simBtn:hover { background: #222; }
 .simBtn:disabled { opacity: .5; cursor: not-allowed; }
 .resetBtn {
   background: var(--white);
   border: 1.5px solid var(--border);
   color: var(--gray);
 }
-.resetBtn:hover { border-color: var(--gray); color: var(--dark); }
+.resetBtn:hover { border-color: #999; color: #111; }
 
 @media (max-width: 768px) {
   .grid { grid-template-columns: 1fr; }

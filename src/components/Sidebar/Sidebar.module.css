@@ -1,20 +1,24 @@
 .sidebar {
   width: var(--sidebar-w);
-  background: var(--white);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background-color: #080808;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    repeating-linear-gradient(120deg, transparent, transparent 180px, rgba(255, 255, 255, 0.012) 180px, rgba(255, 255, 255, 0.012) 181px),
+    repeating-linear-gradient(60deg, transparent, transparent 240px, rgba(255, 255, 255, 0.008) 240px, rgba(255, 255, 255, 0.008) 241px);
+  background-size: 56px 56px, 56px 56px, auto, auto;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   overflow-y: auto;
-  border-right: 1px solid var(--border);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
   height: 100vh;
 }
 
 /* Header */
 .header {
   padding: 22px 16px 18px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .logoMark {
   display: flex;
@@ -33,21 +37,21 @@
   align-items: center;
   gap: 9px;
   padding: 9px 11px;
-  background: var(--bg);
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 9px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   min-width: 0;
 }
 .avatar {
   width: 30px; height: 30px;
   border-radius: 50%;
-  background: #d8d8d6;
+  background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 11px;
   font-weight: 700;
-  color: #555;
+  color: #fff;
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -56,14 +60,14 @@
 .userName {
   font-size: 12px;
   font-weight: 600;
-  color: var(--dark);
+  color: #ffffff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .userEmail {
   font-size: 10px;
-  color: var(--gray);
+  color: rgba(255, 255, 255, 0.5);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -77,7 +81,7 @@
 .navLabel {
   font-size: 9px;
   letter-spacing: 1.5px;
-  color: #aaa;
+  color: rgba(255, 255, 255, 0.35);
   text-transform: uppercase;
   padding: 0 8px;
   margin: 14px 0 5px;
@@ -91,7 +95,7 @@
   border-radius: 7px;
   cursor: pointer;
   transition: background .15s, color .15s;
-  color: #888;
+  color: rgba(255, 255, 255, 0.55);
   font-size: 13px;
   font-weight: 500;
   margin-bottom: 1px;
@@ -101,33 +105,33 @@
   font-family: 'Montserrat', sans-serif;
   text-align: left;
 }
-.navItem:hover { background: var(--bg); color: var(--dark); }
-.navItem.active { background: var(--bg); color: var(--dark); font-weight: 600; }
-.navItem svg { flex-shrink: 0; opacity: .5; }
+.navItem:hover { background: rgba(255, 255, 255, 0.06); color: #ffffff; }
+.navItem.active { background: rgba(255, 255, 255, 0.08); color: #ffffff; font-weight: 600; }
+.navItem svg { flex-shrink: 0; opacity: .7; }
 .navItem.active svg { opacity: 1; }
 
 /* Footer */
 .footer {
   padding: 12px 10px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 .storageSummary {
   padding: 11px;
-  background: var(--bg);
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 9px;
   margin-bottom: 10px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 .storageRow {
   display: flex;
   justify-content: space-between;
   font-size: 10px;
-  color: var(--gray);
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 6px;
 }
 .barBg {
   height: 3px;
-  background: var(--border);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 2px;
   overflow: hidden;
   margin-bottom: 6px;
@@ -135,7 +139,7 @@
 .barFill {
   height: 100%;
   border-radius: 2px;
-  background: var(--dark);
+  background: #ffffff;
   transition: width .6s ease;
 }
 .barDanger { background: var(--warn); }
@@ -167,7 +171,7 @@
   padding: 8px 10px;
   border-radius: 7px;
   cursor: pointer;
-  color: var(--gray);
+  color: rgba(255, 255, 255, 0.55);
   font-size: 12px;
   font-weight: 500;
   transition: all .2s;
@@ -176,4 +180,4 @@
   font-family: 'Montserrat', sans-serif;
   width: 100%;
 }
-.signOut:hover { background: var(--bg); color: var(--dark); }
+.signOut:hover { background: rgba(255, 255, 255, 0.06); color: #ffffff; }

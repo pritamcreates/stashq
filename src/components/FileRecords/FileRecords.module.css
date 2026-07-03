@@ -249,12 +249,12 @@
   cursor: pointer;
   transition: all .15s;
 }
-.cancelBtn:hover { border-color: var(--gray); color: var(--dark); }
+.cancelBtn:hover { border-color: #bbb; color: #111; }
 .saveBtn {
   flex: 1;
   padding: 10px;
   background: var(--dark);
-  color: var(--bg);
+  color: #fff;
   border: none;
   border-radius: 7px;
   font-family: 'Montserrat', sans-serif;
@@ -263,7 +263,7 @@
   cursor: pointer;
   transition: background .15s;
 }
-.saveBtn:hover { background: var(--gray); }
+.saveBtn:hover { background: #222; }
 .saveBtn:disabled { opacity: .5; cursor: not-allowed; }
 
 @media (max-width: 480px) {
