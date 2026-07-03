@@ -16,6 +16,7 @@ import DriveDetailModal from '../../components/DriveDetailModal/DriveDetailModal
 import ShootDayForm from '../../components/ShootDayForm/ShootDayForm';
 import LendingManager from '../../components/LendingManager/LendingManager';
 import DitCalculator from '../../components/DitCalculator/DitCalculator';
+import FileRecords from '../../components/FileRecords/FileRecords';
 import Dialog from '../../components/Dialog/Dialog';
 import Toast from '../../components/Toast/Toast';
 import styles from './Dashboard.module.css';
@@ -220,8 +221,13 @@ export default function Dashboard() {
             <DitCalculator />
           </div>
         )}
+        {view === 'file-records' && (
+          <div className={styles.fullPanel}>
+            <FileRecords showToast={showToast} />
+          </div>
+        )}
 
-        {view !== 'shoot-day' && view !== 'lending-manager' && view !== 'dit-calculator' && (
+        {view !== 'shoot-day' && view !== 'lending-manager' && view !== 'dit-calculator' && view !== 'file-records' && (
           <>
             {/* Topbar */}
             <div className={styles.topbar}>
@@ -451,7 +457,7 @@ export default function Dashboard() {
                           {todayDrive ? (
                             <>
                               <div className={styles.todayName}>{todayDrive.name}</div>
-                              <div className={styles.todayMeta}>{todayDrive.type} · {todayDrive.folder}</div>
+                              <div className={styles.todayMeta}>{todayDrive.type} {todayDrive.location && `· ${todayDrive.location}`}</div>
                               <div className={styles.todayProgRow}>
                                 <span>Usage</span>
                                 <span>{todayDrive.fillPct || 0}%</span>

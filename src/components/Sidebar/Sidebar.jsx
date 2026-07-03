@@ -3,7 +3,7 @@ import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, AlertTriangle, Trash2, Camera,
-  Folder, LogOut, ArrowRightLeft, Calculator
+  Folder, LogOut, ArrowRightLeft, Calculator, Database
 } from 'lucide-react';
 import { auth } from '../../firebase';
 import { useStore } from '../../store/useStore';
@@ -76,6 +76,7 @@ export default function Sidebar({ onNavigate, activeView, activeFolder }) {
         {/* Nav */}
         <nav className={styles.nav}>
           <NavItem view="dashboard" icon={LayoutDashboard} label="Dashboard" />
+          <NavItem view="file-records" icon={Database} label="File Records" />
           <NavItem view="danger"    icon={AlertTriangle}   label="Danger Zone" />
           <NavItem view="cleanup"   icon={Trash2}          label="Cleanup Log" />
 

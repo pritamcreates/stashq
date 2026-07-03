@@ -266,7 +266,7 @@ export default function DriveDetailModal({ drive, onClose, onEdit, onDelete, onU
         <div className={styles.modalHeader}>
           <div>
             <h2 className={styles.title}>{drive.name}</h2>
-            <p className={styles.sub}>{drive.type} · {drive.folder || 'Registry'}</p>
+            <p className={styles.sub}>{drive.type} {drive.location && `· ${drive.location}`}</p>
           </div>
           <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
             <X size={18} />
