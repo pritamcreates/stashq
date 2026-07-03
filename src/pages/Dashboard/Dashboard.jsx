@@ -426,29 +426,6 @@ export default function Dashboard() {
                             </button>
                           )}
                         </div>
-
-                        {/* Folders */}
-                        <div className={styles.foldersBox}>
-                          <div className={styles.cleanupHeader}>
-                            <span className={styles.cleanupTitle}>Folders</span>
-                          </div>
-                          <div className={styles.folderGrid}>
-                            {FOLDERS.map(f => {
-                              const count = drives.filter(d => d.folder === f).length;
-                              return (
-                                <div key={f} className={styles.folderItem} onClick={() => goToView('folder', f)}>
-                                  <div className={styles.folderIco} style={{ background: FOLDER_COLORS[f] + '20' }}>
-                                    <span style={{ fontSize: 14 }}>📁</span>
-                                  </div>
-                                  <div>
-                                    <div className={styles.folderName}>{f}</div>
-                                    <div className={styles.folderSub}>{count} drive{count !== 1 ? 's' : ''}</div>
-                                  </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
                       </div>
                     )}
                   </div>

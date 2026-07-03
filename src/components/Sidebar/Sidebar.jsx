@@ -8,6 +8,7 @@ import {
 import { auth } from '../../firebase';
 import { useStore } from '../../store/useStore';
 import Dialog from '../Dialog/Dialog';
+import stashqblack from '../../assets/stashqblack.png';
 import styles from './Sidebar.module.css';
 
 function fmtGB(gb) {
@@ -55,7 +56,7 @@ export default function Sidebar({ onNavigate, activeView, activeFolder }) {
         {/* Header */}
         <div className={styles.header}>
           <div className={styles.logoMark}>
-            <img src="/stashqblack.png" alt="stashQ" className={styles.logoImg} />
+            <img src={stashqblack} alt="stashQ" className={styles.logoImg} />
           </div>
 
           <div className={styles.userCard}>
@@ -80,11 +81,6 @@ export default function Sidebar({ onNavigate, activeView, activeFolder }) {
 
           <div className={styles.navLabel}>Tools</div>
           <NavItem view="shoot-day" icon={Camera} label="Shoot Day" />
-
-          <div className={styles.navLabel}>Folders</div>
-          {['_ACTIVE', '_ARCHIVE', '_INBOX', '_PERSONAL'].map(f => (
-            <NavItem key={f} view="folder" folder={f} icon={Folder} label={f} />
-          ))}
         </nav>
 
         {/* Footer */}

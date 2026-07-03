@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithPopup, signInWithRedirect, onAuthStateChanged } from 'firebase/auth';
 import { auth, googleProvider } from '../../firebase';
 import { useStore } from '../../store/useStore';
+import stashqblack from '../../assets/stashqblack.png';
 import styles from './SignIn.module.css';
 
 export default function SignIn() {
@@ -53,7 +54,7 @@ export default function SignIn() {
       {/* ── LOGO ── */}
       <header className={styles.header}>
         <div className={styles.logoMark}>
-          <img src="/stashqblack.png" alt="stashQ" className={styles.logoImg} />
+          <img src={stashqblack} alt="stashQ" className={styles.logoImg} />
         </div>
         <div className={styles.headerBadge}>
           <span className={styles.badgeDot} />
