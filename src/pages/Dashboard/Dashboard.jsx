@@ -5,7 +5,7 @@ import {
   collection, getDocs, addDoc, updateDoc, deleteDoc,
   doc, query, where, orderBy, serverTimestamp
 } from 'firebase/firestore';
-import { Plus, Search, Menu, X, AlertTriangle } from 'lucide-react';
+import { Plus, Search, Menu, X, AlertTriangle, CheckCircle2, Trash2, Star, Camera, User, Calculator, ShieldAlert, ArrowRightLeft } from 'lucide-react';
 
 import { auth, db } from '../../firebase';
 import { useStore } from '../../store/useStore';
@@ -14,6 +14,8 @@ import DriveCard from '../../components/DriveCard/DriveCard';
 import DriveModal from '../../components/DriveModal/DriveModal';
 import DriveDetailModal from '../../components/DriveDetailModal/DriveDetailModal';
 import ShootDayForm from '../../components/ShootDayForm/ShootDayForm';
+import LendingManager from '../../components/LendingManager/LendingManager';
+import DitCalculator from '../../components/DitCalculator/DitCalculator';
 import Dialog from '../../components/Dialog/Dialog';
 import Toast from '../../components/Toast/Toast';
 import styles from './Dashboard.module.css';
@@ -127,6 +129,7 @@ export default function Dashboard() {
     try {
       await updateDoc(doc(db, 'drives', driveId), fields);
       await loadDrives();
+      await loadLogs();
       setViewingDrive(prev => prev && prev.id === driveId ? { ...prev, ...fields } : prev);
     } catch (e) {
       showToast('Error updating drive: ' + e.message);
@@ -201,14 +204,24 @@ export default function Dashboard() {
 
       {/* Main */}
       <main className={styles.main}>
-        {/* Shoot Day panel overlay */}
+        {/* Full screen tool panels */}
         {view === 'shoot-day' && (
           <div className={styles.fullPanel}>
             <ShootDayForm onBack={() => goToView('dashboard')} />
           </div>
         )}
+        {view === 'lending-manager' && (
+          <div className={styles.fullPanel}>
+            <LendingManager onUpdateDrive={updateDriveField} showToast={showToast} />
+          </div>
+        )}
+        {view === 'dit-calculator' && (
+          <div className={styles.fullPanel}>
+            <DitCalculator />
+          </div>
+        )}
 
-        {view !== 'shoot-day' && (
+        {view !== 'shoot-day' && view !== 'lending-manager' && view !== 'dit-calculator' && (
           <>
             {/* Topbar */}
             <div className={styles.topbar}>
@@ -322,7 +335,7 @@ export default function Dashboard() {
                           ) : cleanupLogs.map(log => (
                             <div key={log.id} className={styles.logRow}>
                               <div className={styles.logIcon}>
-                                {log.type === 'freed' ? '🟢' : log.type === 'moved' ? '🔵' : '🔷'}
+                                <CheckCircle2 size={16} color="#22c55e" />
                               </div>
                               <div className={styles.logBody}>
                                 <div className={styles.logDrive}>{log.driveName || '—'}</div>
@@ -331,6 +344,57 @@ export default function Dashboard() {
                               <div className={styles.logDate}>{fmtDate(log.cleanedAt)}</div>
                             </div>
                           ))}
+                        </div>
+                      ) : view === 'danger' ? (
+                        /* Danger Zone recommendations view */
+                        <div className={styles.dangerZoneFull}>
+                          {filteredDrives.length === 0 ? (
+                            <div className={styles.emptyState}>
+                              <div className={styles.bigIcon}>🟢</div>
+                              <strong>No critical drives</strong>
+                              <span>All registered storage drives are currently at safe capacities.</span>
+                            </div>
+                          ) : (
+                            <div className={styles.dangerList}>
+                              {filteredDrives.map(drive => {
+                                const isSsd = drive.type === 'SSD' || drive.type === 'NVMe';
+                                const recText = isSsd
+                                  ? "NVMe/SSD filled above 90% can experience write performance drop. Clear temp cache folders, resolve project duplicates, or migrate old assets to a backup HDD."
+                                  : "Mechanical HDD filled above 90% is at higher risk of fragmentation and slower read/write speeds. Recommend transferring cold archives to a second backup drive.";
+
+                                return (
+                                  <div key={drive.id} className={styles.dangerRow}>
+                                    <div className={styles.dangerHeader}>
+                                      <div className={styles.dangerInfo}>
+                                        <div className={styles.dangerName}>{drive.name}</div>
+                                        <div className={styles.dangerMeta}>
+                                          <span>{drive.type}</span>
+                                          {drive.location && <span> · {drive.location}</span>}
+                                          <span className={styles.dangerPct}>{drive.fillPct || 0}% Filled</span>
+                                        </div>
+                                      </div>
+                                      <button className={styles.dangerActionBtn} onClick={() => setViewingDrive(drive)}>
+                                        Log Cleanup
+                                      </button>
+                                    </div>
+                                    <div className={styles.dangerProgress}>
+                                      <div className={styles.dangerBarBg}>
+                                        <div className={styles.dangerBarFill} style={{ width: `${drive.fillPct || 0}%` }} />
+                                      </div>
+                                      <div className={styles.dangerCapRow}>
+                                        <span>{drive.used || 0} GB used</span>
+                                        <span>{drive.capacity || 0} GB capacity</span>
+                                      </div>
+                                    </div>
+                                    <div className={styles.dangerRecBox}>
+                                      <div className={styles.recLabel}>Recommendation</div>
+                                      <p className={styles.recText}>{recText}</p>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
                       ) : (
                         /* Drive cards grid */
@@ -422,7 +486,7 @@ export default function Dashboard() {
                           ) : cleanupLogs.slice(0, 4).map(log => (
                             <div key={log.id} className={styles.logEntry}>
                               <div className={styles.logIconSm}>
-                                {log.type === 'freed' ? '🟢' : log.type === 'moved' ? '🔵' : '🔷'}
+                                <CheckCircle2 size={13} color="#22c55e" />
                               </div>
                               <div className={styles.logBodySm}>
                                 <div className={styles.logDriveSm}>{log.driveName || '—'}</div>

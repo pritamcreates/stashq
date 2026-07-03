@@ -95,6 +95,7 @@ export default function DriveModal({ open, drive, onClose, onSave }) {
               <input
                 type="number"
                 min="0"
+                step="any"
                 value={form.capacity}
                 onChange={e => set('capacity', e.target.value)}
                 placeholder="e.g. 4000"
@@ -105,6 +106,7 @@ export default function DriveModal({ open, drive, onClose, onSave }) {
               <input
                 type="number"
                 min="0"
+                step="any"
                 value={form.used}
                 onChange={e => set('used', e.target.value)}
                 placeholder="e.g. 1200"

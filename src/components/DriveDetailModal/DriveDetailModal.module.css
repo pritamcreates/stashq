@@ -118,6 +118,54 @@
 }
 .notesText { font-size: 13px; color: var(--dark); margin-top: 6px; line-height: 1.5; white-space: pre-line; }
 
+.cleanupLogFormBox {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 10px;
+}
+.inlineCleanupForm {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+.inlineCleanupField {
+  flex: 1;
+}
+.inlineInput {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  outline: none;
+  background: #fff;
+}
+.inlineInput:focus {
+  border-color: #999;
+}
+.cleanupFormSubmit {
+  padding: 8px 16px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+.cleanupFormSubmit:hover {
+  background: #222;
+}
+.cleanupFormSubmit:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
 /* LENDING */
 .lendingStatusCard {
   background: #fcfcfc;

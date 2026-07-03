@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { X, Calendar, User, FileText, Printer, Check, ArrowRightLeft, FolderOpen, Tag } from 'lucide-react';
+import { X, Calendar, User, FileText, Printer, Check, ArrowRightLeft, FolderOpen, Tag, Trash2, CheckCircle2, ChevronRight } from 'lucide-react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../../firebase';
 import styles from './DriveDetailModal.module.css';
 
 function fmtGB(gb) {
@@ -100,6 +102,59 @@ export default function DriveDetailModal({ drive, onClose, onEdit, onDelete, onU
   const [nodeSize, setNodeSize] = useState('');
   const [nodeNotes, setNodeNotes] = useState('');
   const [nodeTags, setNodeTags] = useState('');
+
+  // Space cleanup form states
+  const [cleanupGB, setCleanupGB] = useState('');
+  const [cleanupDesc, setCleanupDesc] = useState('');
+  const [isLoggingCleanup, setIsLoggingCleanup] = useState(false);
+
+  const handleLogCleanup = async (e) => {
+    e.preventDefault();
+    const gbVal = parseFloat(cleanupGB);
+    if (isNaN(gbVal) || gbVal <= 0) {
+      showToast('⚠️ Enter a valid positive number for GB');
+      return;
+    }
+    if (!cleanupDesc.trim()) {
+      showToast('⚠️ Please describe what was cleaned up');
+      return;
+    }
+    if (gbVal > (drive.used || 0)) {
+      showToast('⚠️ Freed space cannot exceed currently used space!');
+      return;
+    }
+
+    setIsLoggingCleanup(true);
+    try {
+      const remainingUsed = parseFloat(Math.max(0, (drive.used || 0) - gbVal).toFixed(2));
+      const fillPct = drive.capacity > 0 ? Math.round((remainingUsed / drive.capacity) * 100) : 0;
+
+      // 1. Log to firestore collection
+      await addDoc(collection(db, 'cleanupLogs'), {
+        uid: drive.uid,
+        driveId: drive.id,
+        driveName: drive.name,
+        type: 'freed',
+        freedGB: gbVal,
+        detail: cleanupDesc.trim(),
+        cleanedAt: serverTimestamp(),
+      });
+
+      // 2. Update drive space
+      await onUpdateDrive(drive.id, {
+        used: remainingUsed,
+        fillPct,
+      });
+
+      showToast(`✅ Logged: Freed ${fmtGB(gbVal)} on ${drive.name}`);
+      setCleanupGB('');
+      setCleanupDesc('');
+    } catch (err) {
+      showToast('Error logging cleanup: ' + err.message);
+    } finally {
+      setIsLoggingCleanup(false);
+    }
+  };
 
   useEffect(() => {
     if (selectedNode && drive?.fileMetadata?.[selectedNode.path]) {
@@ -279,6 +334,38 @@ export default function DriveDetailModal({ drive, onClose, onEdit, onDelete, onU
                   <p className={styles.notesText}>{drive.notes}</p>
                 </div>
               )}
+
+              {/* Log Space Recovery Section */}
+              <div className={styles.cleanupLogFormBox}>
+                <div className={styles.itemLabel}>Log Space Recovery (Cleanup)</div>
+                <form onSubmit={handleLogCleanup} className={styles.inlineCleanupForm}>
+                  <div className={styles.inlineCleanupField}>
+                    <input
+                      type="number"
+                      min="0.1"
+                      step="any"
+                      required
+                      placeholder="Freed space (GB)"
+                      className={styles.inlineInput}
+                      value={cleanupGB}
+                      onChange={e => setCleanupGB(e.target.value)}
+                    />
+                  </div>
+                  <div className={styles.inlineCleanupField} style={{ flex: 2 }}>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Description (e.g. Cleared raw duplicates)"
+                      className={styles.inlineInput}
+                      value={cleanupDesc}
+                      onChange={e => setCleanupDesc(e.target.value)}
+                    />
+                  </div>
+                  <button type="submit" className={styles.cleanupFormSubmit} disabled={isLoggingCleanup}>
+                    {isLoggingCleanup ? 'Logging...' : 'Log'}
+                  </button>
+                </form>
+              </div>
             </div>
           )}
 

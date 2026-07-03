@@ -76,25 +76,6 @@ export default function DriveCard({ drive, onOpen, onEdit, onDelete, onMarkToday
               </button>
               <button
                 className={styles.ddItem}
-                onClick={() => setShowMove(v => !v)}
-              >
-                <FolderOpen size={13} /> Move to…
-              </button>
-              {showMove && (
-                <div className={styles.subMenu}>
-                  {FOLDERS.filter(f => f !== drive.folder).map(f => (
-                    <button
-                      key={f}
-                      className={styles.ddItem}
-                      onClick={() => { onMoveFolder(drive, f); setMenuOpen(false); setShowMove(false); }}
-                    >
-                      {f}
-                    </button>
-                  ))}
-                </div>
-              )}
-              <button
-                className={styles.ddItem}
                 onClick={() => { onMarkToday(drive); setMenuOpen(false); }}
               >
                 <Star size={13} /> {isToday ? 'Unmark Today' : 'Mark as Today'}
@@ -123,7 +104,7 @@ export default function DriveCard({ drive, onOpen, onEdit, onDelete, onMarkToday
 
       {/* Name & location */}
       <div className={styles.name}>{highlight(drive.name)}</div>
-      <div className={styles.loc}>{drive.folder || '—'}</div>
+      <div className={styles.loc}>{drive.location || '—'}</div>
 
       {/* Fill bar */}
       <div className={styles.barBg}>

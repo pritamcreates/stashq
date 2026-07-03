@@ -584,3 +584,112 @@
   .statsRow { grid-template-columns: repeat(2, 1fr); }
   .drivesGrid { grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); }
 }
+
+/* Danger Zone Recommendations View */
+.dangerZoneFull {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dangerList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dangerRow {
+  background: #fbfbf9;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeUp .3s ease both;
+}
+.dangerRow:hover {
+  border-color: #d8d8d6;
+  background: #fff;
+}
+.dangerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.dangerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dangerName {
+  font-size: 15px;
+  font-weight: 800;
+  color: #111;
+}
+.dangerMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--gray);
+  font-weight: 600;
+}
+.dangerPct {
+  color: var(--warn);
+}
+.dangerActionBtn {
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+.dangerActionBtn:hover {
+  background: #222;
+}
+.dangerProgress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.dangerBarBg {
+  height: 5px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.dangerBarFill {
+  height: 100%;
+  background: var(--warn);
+  border-radius: 3px;
+}
+.dangerCapRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--gray);
+}
+.dangerRecBox {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.recLabel {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #888;
+  letter-spacing: .5px;
+  margin-bottom: 4px;
+}
+.recText {
+  font-size: 12px;
+  color: #444;
+  line-height: 1.4;
+  margin: 0;
+}
