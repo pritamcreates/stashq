@@ -52,6 +52,11 @@ export default function DriveCard({ drive, onOpen, onEdit, onDelete, onMarkToday
             {drive.type || 'HDD'}
           </span>
           {isToday && <span className={`${styles.badge} ${styles.badgeToday}`}>Today</span>}
+          {drive.lending?.isLent && (
+            <span className={`${styles.badge} ${styles.badgeLent}`} title={`Lent to ${drive.lending.lentTo}`}>
+              Lent
+            </span>
+          )}
         </div>
 
         {/* Menu */}

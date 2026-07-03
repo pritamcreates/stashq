@@ -48,6 +48,7 @@
 .badgeHdd { background: rgba(37,99,235,.1); color: var(--hdd); }
 .badgeSsd { background: rgba(14,165,233,.1); color: var(--ssd); }
 .badgeToday { background: rgba(37,99,235,.1); color: var(--blue); }
+.badgeLent { background: rgba(220,38,38,.1); color: var(--danger); }
 
 /* Menu */
 .menuWrap { position: relative; }

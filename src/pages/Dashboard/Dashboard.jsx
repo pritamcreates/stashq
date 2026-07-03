@@ -12,6 +12,7 @@ import { useStore } from '../../store/useStore';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import DriveCard from '../../components/DriveCard/DriveCard';
 import DriveModal from '../../components/DriveModal/DriveModal';
+import DriveDetailModal from '../../components/DriveDetailModal/DriveDetailModal';
 import ShootDayForm from '../../components/ShootDayForm/ShootDayForm';
 import Dialog from '../../components/Dialog/Dialog';
 import Toast from '../../components/Toast/Toast';
@@ -120,6 +121,16 @@ export default function Dashboard() {
       await loadDrives();
       setModalOpen(false);
     } catch (e) { showToast('Error: ' + e.message); }
+  };
+
+  const updateDriveField = async (driveId, fields) => {
+    try {
+      await updateDoc(doc(db, 'drives', driveId), fields);
+      await loadDrives();
+      setViewingDrive(prev => prev && prev.id === driveId ? { ...prev, ...fields } : prev);
+    } catch (e) {
+      showToast('Error updating drive: ' + e.message);
+    }
   };
 
   const deleteDrive = async () => {
@@ -438,44 +449,14 @@ export default function Dashboard() {
 
       {/* Drive detail modal (view) */}
       {viewingDrive && (
-        <div className={styles.detailOverlay} onClick={() => setViewingDrive(null)}>
-          <div className={styles.detailModal} onClick={e => e.stopPropagation()}>
-            <div className={styles.detailHeader}>
-              <div>
-                <h2 className={styles.detailTitle}>{viewingDrive.name}</h2>
-                <p className={styles.detailSub}>{viewingDrive.type} · {viewingDrive.folder}</p>
-              </div>
-              <button className={styles.closeBtn} onClick={() => setViewingDrive(null)}><X size={18} /></button>
-            </div>
-            <div className={styles.detailGrid}>
-              {[
-                ['Capacity', viewingDrive.capacity ? fmtGB(viewingDrive.capacity) : '—'],
-                ['Used', viewingDrive.used ? fmtGB(viewingDrive.used) : '—'],
-                ['Fill', `${viewingDrive.fillPct || 0}%`],
-                ['Location', viewingDrive.location || '—'],
-              ].map(([label, val]) => (
-                <div key={label} className={styles.detailItem}>
-                  <div className={styles.detailItemLabel}>{label}</div>
-                  <div className={styles.detailItemVal}>{val}</div>
-                </div>
-              ))}
-            </div>
-            {viewingDrive.notes && (
-              <div className={styles.detailNotes}>
-                <div className={styles.detailItemLabel}>Notes</div>
-                <p>{viewingDrive.notes}</p>
-              </div>
-            )}
-            <div className={styles.detailActions}>
-              <button className={styles.detailEdit} onClick={() => { openEdit(viewingDrive); setViewingDrive(null); }}>
-                Edit Drive
-              </button>
-              <button className={styles.detailDelete} onClick={() => { setDeleteTarget(viewingDrive); setViewingDrive(null); }}>
-                <AlertTriangle size={13} /> Delete
-              </button>
-            </div>
-          </div>
-        </div>
+        <DriveDetailModal
+          drive={viewingDrive}
+          onClose={() => setViewingDrive(null)}
+          onEdit={openEdit}
+          onDelete={setDeleteTarget}
+          onUpdateDrive={updateDriveField}
+          showToast={showToast}
+        />
       )}
 
       {/* Add / Edit modal */}

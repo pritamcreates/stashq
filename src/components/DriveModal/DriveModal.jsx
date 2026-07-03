@@ -4,7 +4,7 @@ import styles from './DriveModal.module.css';
 
 const BLANK = {
   name: '', type: 'HDD', capacity: '', used: '',
-  folder: '_ACTIVE', location: '', notes: '',
+  folder: '_ACTIVE', location: '', notes: '', price: '',
 };
 
 export default function DriveModal({ open, drive, onClose, onSave }) {
@@ -23,6 +23,7 @@ export default function DriveModal({ open, drive, onClose, onSave }) {
         folder: drive.folder || '_ACTIVE',
         location: drive.location || '',
         notes: drive.notes || '',
+        price: drive.price ?? '',
       } : BLANK);
     }
   }, [open, drive]);
@@ -44,6 +45,7 @@ export default function DriveModal({ open, drive, onClose, onSave }) {
       ...form,
       capacity: Number(form.capacity) || 0,
       used: Number(form.used) || 0,
+      price: form.price ? Number(form.price) : 0,
       fillPct: pct,
     });
     setSaving(false);
@@ -123,15 +125,18 @@ export default function DriveModal({ open, drive, onClose, onSave }) {
             </div>
           )}
 
-          {/* Folder + Location */}
+          {/* Price + Location */}
           <div className={styles.row}>
             <div className={styles.field}>
-              <label>Folder</label>
-              <select value={form.folder} onChange={e => set('folder', e.target.value)}>
-                {['_ACTIVE', '_ARCHIVE', '_INBOX', '_PERSONAL'].map(f => (
-                  <option key={f}>{f}</option>
-                ))}
-              </select>
+              <label>Price (Optional)</label>
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                value={form.price}
+                onChange={e => set('price', e.target.value)}
+                placeholder="e.g. 149.99"
+              />
             </div>
             <div className={styles.field}>
               <label>Location / Label</label>
