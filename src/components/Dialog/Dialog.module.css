@@ -1,0 +1,101 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(8px);
+  animation: fadeIn .2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.dialog {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  width: 320px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: scaleIn .25s ease;
+  max-width: 92vw;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.iconWrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #111;
+}
+
+.message {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.btns {
+  display: flex;
+  gap: 8px;
+}
+
+.cancel {
+  flex: 1;
+  padding: 10px;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #666;
+  transition: background .15s;
+}
+
+.cancel:hover { background: #eee; }
+
+.confirm {
+  flex: 1;
+  padding: 10px;
+  background: #0a0a0a;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  transition: background .15s;
+}
+
+.confirm:hover { background: #222; }
+.confirm.danger { background: #dc2626; }
+.confirm.danger:hover { background: #b91c1c; }

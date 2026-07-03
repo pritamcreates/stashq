@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+/* ════════════════════════════════════════════
+   DESIGN TOKENS
+════════════════════════════════════════════ */
+:root {
+  /* Palette */
+  --bg: #f2f2f0;
+  --white: #fff;
+  --dark: #111110;
+  --gray: #8a8a8a;
+  --border: #e6e6e4;
+  --border2: #ebebeb;
+
+  /* Accent */
+  --accent: #111110;
+  --accent-hover: #2a2a2a;
+  --blue: #2563eb;
+
+  /* Drive types */
+  --hdd: #111110;
+  --ssd: #555;
+
+  /* Status */
+  --danger: #c0392b;
+  --warn: #b7791f;
+  --safe: #276749;
+
+  /* Layout */
+  --sidebar-w: 236px;
+
+  /* Radii */
+  --r-sm: 6px;
+  --r-md: 9px;
+  --r-lg: 13px;
+  --r-xl: 16px;
+  --r-2xl: 18px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.05);
+  --shadow-md: 0 8px 28px rgba(0,0,0,.07);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,.2);
+  --shadow-xl: 0 24px 60px rgba(0,0,0,.35);
+}
+
+/* ════════════════════════════════════════════
+   RESET
+════════════════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+button {
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+}
+
+input, select, textarea {
+  font-family: 'Montserrat', sans-serif;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ════════════════════════════════════════════
+   SCROLLBAR
+════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d8d8d6; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #bbb; }
+
+/* ════════════════════════════════════════════
+   UTILITIES
+════════════════════════════════════════════ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+mark.sh {
+  background: #fef08a;
+  color: #0a0a0a;
+  border-radius: 2px;
+  padding: 0 1px;
+  font-style: normal;
+}

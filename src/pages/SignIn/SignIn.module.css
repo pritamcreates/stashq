@@ -1,0 +1,594 @@
+/* ════════════════════════════════════════════
+   SIGN-IN PAGE — WHITE / LIGHT THEME
+════════════════════════════════════════════ */
+
+.page {
+  font-family: 'Montserrat', sans-serif;
+  background: #fafafa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── GRID BACKGROUND ── */
+.gridBg {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── FLOATING BLOBS ── */
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+.blob1 {
+  width: 400px; height: 400px;
+  background: rgba(99,179,237,.12);
+  top: -100px; left: -80px;
+}
+.blob2 {
+  width: 300px; height: 300px;
+  background: rgba(154,117,234,.1);
+  bottom: -60px; right: -60px;
+}
+.blob3 {
+  width: 200px; height: 200px;
+  background: rgba(56,189,148,.1);
+  top: 50%; left: 45%;
+}
+
+/* ── SPARKLES ── */
+.sparkle {
+  position: fixed;
+  font-size: 18px;
+  color: #c8c8c8;
+  pointer-events: none;
+  z-index: 0;
+  animation: sparkleFloat 4s ease-in-out infinite;
+}
+.sparkle1 { top: 12%; left: 62%; animation-delay: 0s; font-size: 22px; }
+.sparkle2 { top: 35%; right: 10%; animation-delay: 1.2s; font-size: 14px; }
+.sparkle3 { bottom: 28%; left: 52%; animation-delay: 2.4s; font-size: 16px; }
+
+@keyframes sparkleFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: .5; }
+  50%       { transform: translateY(-10px) rotate(20deg); opacity: 1; }
+}
+
+/* ── HEADER ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 40px;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.logoMark {
+  display: flex;
+  align-items: center;
+}
+.logoImg {
+  height: 28px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.headerBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 20px;
+  padding: 5px 14px 5px 10px;
+  font-size: 11px;
+  color: #666;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.badgeDot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
+
+/* ── MAIN LAYOUT ── */
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 20px 40px 40px;
+  gap: 48px;
+  position: relative;
+  z-index: 10;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ── LEFT HERO ── */
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #aaa;
+  animation: fadeUp .5s ease both;
+}
+
+.heading {
+  font-size: clamp(38px, 5vw, 64px);
+  font-weight: 800;
+  color: #111;
+  line-height: 1.08;
+  letter-spacing: -2px;
+  animation: fadeUp .5s ease .08s both;
+}
+.heading em {
+  font-style: normal;
+  background: linear-gradient(135deg, #555 0%, #111 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sub {
+  font-size: 15px;
+  color: #777;
+  line-height: 1.65;
+  animation: fadeUp .5s ease .16s both;
+  max-width: 380px;
+}
+
+/* ── 3D HARDWARE VISUAL ── */
+.hardwareWrap {
+  position: relative;
+  height: 280px;
+  margin: 8px 0;
+  animation: fadeUp .5s ease .24s both;
+}
+
+/* SSD Card */
+.ssdCard {
+  position: absolute;
+  left: 0;
+  top: 30px;
+  width: 200px;
+  background: linear-gradient(145deg, #f0f0ee 0%, #e8e8e6 40%, #f4f4f2 100%);
+  border-radius: 14px;
+  border: 1px solid #ddd;
+  box-shadow:
+    0 2px 0 #c8c8c6,
+    0 4px 0 #bbb,
+    0 20px 48px rgba(0,0,0,.14),
+    inset 0 1px 0 rgba(255,255,255,.8);
+  overflow: hidden;
+  transform: perspective(600px) rotateY(-8deg) rotateX(4deg);
+  transition: transform .4s ease;
+}
+.ssdCard:hover {
+  transform: perspective(600px) rotateY(-4deg) rotateX(2deg) translateY(-6px);
+}
+.ssdTop {
+  padding: 14px 14px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.ssdLabel { display: flex; flex-direction: column; gap: 2px; }
+.ssdBrand { font-size: 11px; font-weight: 800; color: #222; letter-spacing: -.3px; }
+.ssdModel  { font-size: 9px;  font-weight: 600; color: #888; letter-spacing: .5px; text-transform: uppercase; }
+.ssdLed {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e88;
+  animation: ledBlink 2s ease-in-out infinite;
+}
+@keyframes ledBlink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+
+.ssdBody { padding: 10px 14px 12px; }
+.ssdChips {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.chip {
+  width: 28px; height: 20px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+  border-radius: 3px;
+  border: 1px solid #444;
+  box-shadow: 0 1px 3px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.05);
+  position: relative;
+}
+.chip::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 1px;
+}
+.ssdConnector {
+  display: flex;
+  gap: 2.5px;
+  padding: 3px 0;
+}
+.connPin {
+  flex: 1;
+  height: 10px;
+  background: linear-gradient(180deg, #d4a017 0%, #b8860b 100%);
+  border-radius: 1px;
+  max-width: 5px;
+}
+.ssdShadow {
+  position: absolute;
+  bottom: -20px; left: 10%; right: 10%;
+  height: 20px;
+  background: radial-gradient(ellipse, rgba(0,0,0,.18) 0%, transparent 70%);
+  filter: blur(8px);
+}
+
+/* Memory / SD Card */
+.sdCard {
+  position: absolute;
+  left: 160px;
+  top: 0;
+  width: 130px;
+  background: linear-gradient(145deg, #f8f8f6 0%, #ededeb 60%, #f2f2f0 100%);
+  border-radius: 10px 10px 14px 14px;
+  border: 1px solid #ddd;
+  box-shadow:
+    0 2px 0 #c8c8c6,
+    0 4px 0 #bbb,
+    0 18px 40px rgba(0,0,0,.13),
+    inset 0 1px 0 rgba(255,255,255,.9);
+  transform: perspective(600px) rotateY(6deg) rotateX(4deg);
+  overflow: hidden;
+  transition: transform .4s ease;
+}
+.sdCard:hover {
+  transform: perspective(600px) rotateY(3deg) rotateX(2deg) translateY(-6px);
+}
+.sdTop {
+  padding: 12px 12px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+.sdLabel { display: flex; flex-direction: column; gap: 2px; }
+.sdBrand { font-size: 11px; font-weight: 800; color: #d62727; letter-spacing: -.3px; }
+.sdCap   { font-size: 9px;  font-weight: 700; color: #666; }
+.sdLogo {
+  font-size: 10px;
+  font-weight: 800;
+  color: #888;
+  letter-spacing: -1px;
+}
+.sdContacts {
+  display: flex;
+  gap: 2px;
+  padding: 8px 10px 10px;
+}
+.sdPin {
+  flex: 1;
+  height: 24px;
+  background: linear-gradient(180deg, #d4a017 0%, #b8860b 100%);
+  border-radius: 0 0 2px 2px;
+  position: relative;
+}
+.sdShadow {
+  position: absolute;
+  bottom: -16px; left: 5%; right: 5%;
+  height: 16px;
+  background: radial-gradient(ellipse, rgba(0,0,0,.15) 0%, transparent 70%);
+  filter: blur(6px);
+}
+
+/* HDD Card */
+.hddCard {
+  position: absolute;
+  left: 310px;
+  top: 50px;
+  width: 160px;
+  background: linear-gradient(145deg, #eeeeec 0%, #e4e4e2 50%, #eaeae8 100%);
+  border-radius: 12px;
+  border: 1px solid #d8d8d6;
+  box-shadow:
+    0 2px 0 #c0c0be,
+    0 4px 0 #b0b0ae,
+    0 16px 40px rgba(0,0,0,.12),
+    inset 0 1px 0 rgba(255,255,255,.75);
+  transform: perspective(600px) rotateY(8deg) rotateX(-3deg);
+  overflow: hidden;
+  transition: transform .4s ease;
+}
+.hddCard:hover {
+  transform: perspective(600px) rotateY(4deg) rotateX(-1deg) translateY(-6px);
+}
+.hddTop {
+  padding: 12px 12px 8px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.hddLabel { display: flex; flex-direction: column; gap: 2px; }
+.hddBrand { font-size: 11px; font-weight: 800; color: #1a7a3a; letter-spacing: -.3px; }
+.hddModel { font-size: 9px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: .4px; }
+.hddPlatter {
+  position: relative;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+.platterRing {
+  position: absolute;
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  border: 6px solid #d0d0ce;
+  background: radial-gradient(circle at 35% 35%, #e8e8e6, #c8c8c6);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.1);
+}
+.platterRing2 {
+  position: absolute;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 3px solid #b8b8b6;
+  background: radial-gradient(circle at 40% 35%, #d8d8d6, #b8b8b6);
+}
+.platterCenter {
+  position: absolute;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #666, #333);
+  box-shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+.hddArm {
+  position: absolute;
+  width: 50px; height: 4px;
+  background: linear-gradient(90deg, #666, #999);
+  border-radius: 2px;
+  transform-origin: right center;
+  transform: rotate(-30deg) translateX(8px);
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+.hddShadow {
+  position: absolute;
+  bottom: -16px; left: 5%; right: 5%;
+  height: 16px;
+  background: radial-gradient(ellipse, rgba(0,0,0,.12) 0%, transparent 70%);
+  filter: blur(6px);
+}
+
+/* Annotation */
+.annotation {
+  position: absolute;
+  bottom: 0;
+  left: 80px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  animation: fadeUp .5s ease .5s both;
+}
+.annotationText {
+  font-size: 12px;
+  font-style: italic;
+  color: #999;
+  padding: 5px 12px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+/* Stats */
+.statsRow {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid #ebebeb;
+  padding-top: 20px;
+  animation: fadeUp .5s ease .32s both;
+}
+.stat {
+  flex: 1;
+  padding-right: 20px;
+  border-right: 1px solid #ebebeb;
+  margin-right: 20px;
+}
+.stat:last-child { border: none; margin: 0; padding: 0; }
+.statVal {
+  font-size: 22px;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.statLabel { font-size: 10px; color: #aaa; margin-top: 3px; font-weight: 500; }
+
+/* ── RIGHT PANEL ── */
+.panel {
+  width: 380px;
+  flex-shrink: 0;
+  animation: fadeUp .5s ease .12s both;
+}
+
+.panelCard {
+  background: #fff;
+  border: 1px solid #e8e8e6;
+  border-radius: 24px;
+  padding: 36px 32px;
+  box-shadow:
+    0 4px 6px rgba(0,0,0,.04),
+    0 20px 48px rgba(0,0,0,.07),
+    inset 0 1px 0 rgba(255,255,255,1);
+}
+
+.panelTop { margin-bottom: 28px; }
+.panelTitle {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.panelSub {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.65;
+}
+
+.errorMsg {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-bottom: 16px;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  animation: fadeUp .3s ease both;
+}
+
+/* Google button */
+.googleBtn {
+  width: 100%;
+  padding: 15px 20px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  margin-bottom: 20px;
+  letter-spacing: -.2px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.15);
+}
+.googleBtn:hover {
+  background: #222;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+.googleBtn:active { transform: translateY(0); }
+.googleBtn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+.googleIconWrap {
+  width: 22px; height: 22px;
+  background: #fff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.divider span {
+  flex: 1;
+  height: 1px;
+  background: #ebebeb;
+}
+.divider small {
+  font-size: 10px;
+  color: #bbb;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* Feature pills */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.featurePill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  background: #f5f5f3;
+  border: 1px solid #eaeae8;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #555;
+  transition: background .15s, border-color .15s;
+}
+.featurePill:hover { background: #ebebeb; border-color: #ddd; }
+.featureDot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #111;
+  flex-shrink: 0;
+}
+
+.terms {
+  font-size: 11px;
+  color: #ccc;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .main { flex-direction: column; padding: 20px 24px 40px; gap: 32px; }
+  .panel { width: 100%; max-width: 480px; align-self: center; }
+  .hero { align-items: center; text-align: center; }
+  .sub { text-align: center; }
+  .statsRow { justify-content: center; }
+  .hardwareWrap { height: 200px; transform: scale(.85); transform-origin: center; }
+}
+@media (max-width: 600px) {
+  .header { padding: 18px 20px; }
+  .headerBadge { display: none; }
+  .main { padding: 12px 20px 32px; }
+  .heading { font-size: 36px; letter-spacing: -1.5px; }
+  .hardwareWrap { height: 160px; transform: scale(.7); transform-origin: center; }
+  .panelCard { padding: 28px 22px; border-radius: 18px; }
+  .panelTitle { font-size: 24px; }
+}
